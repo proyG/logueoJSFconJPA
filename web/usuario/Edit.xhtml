@@ -15,9 +15,7 @@
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_username}" for="username" />
                         <p:inputText id="username" value="#{usuarioController.selected.username}" title="#{bundle.EditUsuarioTitle_username}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_username}"/>
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_password}" for="password" />
-                        <p:inputText id="password" value="#{usuarioController.selected.password}" title="#{bundle.EditUsuarioTitle_password}" />
-                        <p:outputLabel value="#{bundle.EditUsuarioLabel_idUsuario}" for="idUsuario" />
-                        <p:inputText id="idUsuario" value="#{usuarioController.selected.idUsuario}" title="#{bundle.EditUsuarioTitle_idUsuario}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_idUsuario}"/>
+                        <p:inputText id="password" value="#{usuarioController.selected.password}" title="#{bundle.EditUsuarioTitle_password}" />                        
                     </p:panelGrid>
                     <p:commandButton actionListener="#{usuarioController.update}" value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UsuarioEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioEditDialog.hide()"/>

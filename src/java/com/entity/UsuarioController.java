@@ -103,6 +103,18 @@ public class UsuarioController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
+    
+    //registrar un usuario desde formulario de registro
+    public void RegistrarUsuario(){
+        selected = new Usuario();        
+        selected.setUsername(usuario);
+        selected.setPassword(contrasenia);
+        
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioCreated"));        
+        if (!JsfUtil.isValidationFailed()) {            
+            items = null;    // Invalidate list of items to trigger re-query.
+        }        
+    }       
 
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioUpdated"));

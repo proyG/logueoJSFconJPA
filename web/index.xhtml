@@ -8,16 +8,40 @@
     <h:head>
         <title>Facelet Title</title>
         <h:outputStylesheet name="css/jsfcrud.css"/>
+        
+        <script type="text/javascript">
+            function handleLoginRequest(xhr, status, args) {
+                if(args.validationFailed || !args.loggedIn) {
+                    PF('dlg').jq.effect("shake", {times:5}, 100);
+                }
+                else {
+                    PF('dlg').hide();
+                    $('#loginLink').fadeOut();
+                }
+            }
+        </script>
     </h:head>
     <h:body>              
-        <h:form>
-              <p:growl id="growl" sticky="true" life="3000" />
-               <p:outputLabel value="#{bundle.CreateUsuarioLabel_username}" for="username" />
-               <p:inputText id="username" value="#{usuarioController.usuario}" title="#{bundle.CreateUsuarioTitle_username}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_username}"/>
-                <p:outputLabel value="#{bundle.CreateUsuarioLabel_password}" for="password" />
-                <p:inputText id="password" value="#{usuarioController.contrasenia}" title="#{bundle.CreateUsuarioTitle_password}" />
-                <p:commandButton action="#{usuarioController.login()}" value="iniciar Sesion" update="growl"/>
-            </h:form>
+         <h:form>            
+            <p:growl id="growl" sticky="true" life="3000" />
+                       
+            <p:confirmDialog message="inicie sesion para acceder al sistema" header="Login" widgetVar="dlg" visible="true" closable="false" showEffect="fade" hideEffect="explode"  >
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputLabel for="usuario" value="Usuario" />
+                    <p:inputText id="usuario" value="#{usuarioController.usuario}" required="true" label="Usuario" />
+
+                    <h:outputLabel for="contraseña" value="Contraseña: " />
+                    <p:password id="contraseña" value="#{usuarioController.contrasenia}" required="true" label="Contraseña" />
+                    <f:facet name="footer">
+                        <p:commandButton action="#{usuarioController.login()}" value="iniciar Sesion" update="growl"/>
+                    </f:facet> 
+                </h:panelGrid>
+                
+                <p:separator/>                 
+                <p:link outcome="resgistroUsuario" value="Registrate">               
+                </p:link>
+            </p:confirmDialog>           
+        </h:form>    
         
     </h:body>
 
