@@ -26,10 +26,19 @@ public class UsuarioController implements Serializable {
     private List<Usuario> items = null;
     private Usuario selected;
     
+    private int id_usuario;
     private String usuario;
     private String contrasenia;
 
     public UsuarioController() {
+    }
+
+    public int getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
     }
     
     public String login()
@@ -106,7 +115,7 @@ public class UsuarioController implements Serializable {
     
     //registrar un usuario desde formulario de registro
     public void RegistrarUsuario(){
-        selected = new Usuario();        
+        selected = new Usuario();
         selected.setUsername(usuario);
         selected.setPassword(contrasenia);
         
