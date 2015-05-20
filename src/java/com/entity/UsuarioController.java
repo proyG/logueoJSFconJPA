@@ -182,8 +182,41 @@ public class UsuarioController implements Serializable {
         
     }       
 
-    public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioUpdated"));
+    public void update() {        
+        //selected.setPassword(Encrypt.sha512(selected.getPassword()));
+         //validar contraseña alfanumerica, minusculas, mayusculas:
+        boolean minus=false, mayus=false, num=false;
+        
+        contrasenia = selected.getPassword();
+        for(int i=0;i<contrasenia.length();i++){
+            char c = contrasenia.charAt(i);
+            if(c>='a'&& c<='z'){
+                minus=true;                              
+            }
+            else if(c>='A'&& c<='Z'){
+                mayus=true;
+            } 
+            else if(c>='1'&& c<='9'){
+                num=true;
+            }
+        }
+        
+        if(minus == true && mayus == true && num==true){
+        
+            selected = new Usuario();
+            selected.setUsername(usuario);
+            selected.setPassword(Encrypt.sha512(contrasenia));
+
+            persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioUpdated"));
+            if (!JsfUtil.isValidationFailed()) {            
+                items = null;    // Invalidate list of items to trigger re-query.
+            } 
+        }
+        else JsfUtil.addErrorMessage("la contraseña debe tener letras mayusculas, minusculas y numeros");
+        
+        
+        
+        
     }
 
     public void destroy() {
