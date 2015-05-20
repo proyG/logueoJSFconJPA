@@ -10,52 +10,55 @@
     <h:body>
         <h:form id="form">
             <p:growl id="growl" sticky="true" life="3000" />
-            <div style="margin-left: 400px; margin-right: 450px">
-                <p:panel id="panel" header="Formulario de Registro" closable="true">                
-                <h:panelGrid columns="3" cellpadding="5">
-                    <p:outputLabel for="txtUsuario" value="Nombre de usuario" />
-                    <p:inputText id="txtUsuario" value="#{usuarioController.usuario}" required="true" label="Nombre Usuario">
-                        <f:validateLength minimum="4" />                        
-                    </p:inputText>
-                    <p:message for="txtUsuario" />
+
+
+                <p:confirmDialog message="Ingrese sus Datos para registrarlos en la Base de Datos!" header="Formulario de Registro" widgetVar="dlg" visible="true" closable="false" showEffect="fade" hideEffect="explode"  >
+                    <!--<div style="margin-left: 400px; margin-right: 450px">-->
+                    <p:panel id="panel" header="Datos" closable="true">                
+                        <h:panelGrid columns="3" cellpadding="5">
+                            <p:outputLabel for="txtUsuario" value="Nombre de usuario" />
+                            <p:inputText id="txtUsuario" value="#{usuarioController.usuario}" required="true" label="Nombre Usuario">
+                                <f:validateLength minimum="4" />                        
+                            </p:inputText>
+                            <p:message for="txtUsuario" />
+
+                            <h:outputText value="Constraseña: " />
+                            <p:password weakLabel="debil" promptLabel="Ingrese su constraseña" goodLabel="buena" strongLabel="Fuerte" 
+                                        id="contraseña" value="#{usuarioController.contrasenia}" match="contraseña2" feedback="true" 
+                                        validatorMessage="Contraseñas NO coinciden" required="true"  label="Contraseña">
+                                <f:validateLength minimum="16" />                        
+                            </p:password>
+                            <p:message for="contraseña" />
+
+                            <h:outputText value="Confirme Constraseña: " />
+                            <p:password weakLabel="debil" promptLabel="Ingrese su constraseña" goodLabel="buena" strongLabel="Fuerte" 
+                                        id="contraseña2" value="#{usuarioController.contrasenia}" feedback="true" required="true"
+                                        label="Confirmar contraseña">
+                                <f:validateLength minimum="16" />                        
+                            </p:password>
+                            <p:message for="contraseña2" />   
+
+                        </h:panelGrid>
+                    </p:panel>
+
+                    <p:toolbar>
+                        <f:facet name="left">
+                            <p:commandButton value="Registrar" update="growl" actionListener="#{usuarioController.RegistrarUsuario}" style="margin-right:20px;" />
+                            <p:link outcome="index" value="Cancelar"></p:link>
+                        </f:facet> 
+                        <f:facet name="right">                                        
+                            <p:link outcome="index" value="Iniciar Sesión"></p:link>
+                        </f:facet> 
+                    </p:toolbar>
+                    <p:panel>
+                        <div style="background:#f2f2f2; border:5px solid #fefefe; outline:thin solid #efefef; margin-left: 400; margin-right: 400; ">
+                            <h2 align="center">requisitos para establecer la constraseña:</h2>
+                            <p>- debe contener 16 caracteres como mínimo</p>
+                            <p>- debe contener mayusculas, minusculas y numeros</p>                                        
+                        </div>        
+                    </p:panel>
                     
-                    <h:outputText value="Constraseña: " />
-                    <p:password weakLabel="debil" promptLabel="Ingrese su constraseña" goodLabel="buena" strongLabel="Fuerte" 
-                                id="contraseña" value="#{usuarioController.contrasenia}" match="contraseña2" feedback="true" 
-                                validatorMessage="Contraseñas NO coinciden" required="true"  label="Contraseña">
-                        <f:validateLength minimum="16" />                        
-                    </p:password>
-                    <p:message for="contraseña" />
-                    
-                    <h:outputText value="Confirme Constraseña: " />
-                        <p:password weakLabel="debil" promptLabel="Ingrese su constraseña" goodLabel="buena" strongLabel="Fuerte" 
-                                    id="contraseña2" value="#{usuarioController.contrasenia}" feedback="true" required="true"
-                                    label="Confirmar contraseña">
-                            <f:validateLength minimum="16" />                        
-                        </p:password>
-                    <p:message for="contraseña2" />   
-                    
-                </h:panelGrid>
-            </p:panel>
-            
-            <p:toolbar>
-                <f:facet name="left">
-                    <p:commandButton value="Registrar" update="growl" actionListener="#{usuarioController.RegistrarUsuario}" style="margin-right:20px;" />
-                    <p:link outcome="index" value="Cancelar"></p:link>
-                </f:facet> 
-                <f:facet name="right">                                        
-                    <p:link outcome="index" value="Iniciar Sesión"></p:link>
-                </f:facet> 
-            </p:toolbar>
-                
-                <br/><br/>
-                <div style="background:#f2f2f2; border:5px solid #fefefe; outline:thin solid #efefef; margin-left: 400; margin-right: 400; ">
-                    <h2 align="center">requisitos para establecer la constraseña:</h2>
-                    <p>- debe contener 16 caracteres como mínimo</p>
-                    <p>- debe contener mayusculas, minusculas y numeros</p>                                        
-                </div>
-            
-            </div>
+                </p:confirmDialog>    
         </h:form>
     </h:body>
 </html>

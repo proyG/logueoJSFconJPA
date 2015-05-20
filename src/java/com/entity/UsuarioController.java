@@ -17,6 +17,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.servlet.http.HttpSession;
 
 
 @ManagedBean(name = "usuarioController")
@@ -31,6 +32,8 @@ public class UsuarioController implements Serializable {
     private int id_usuario;
     private String usuario;
     private String contrasenia;
+    public HttpSession miSession;
+    
     public static int contador;
 
     public UsuarioController() {
@@ -71,6 +74,7 @@ public class UsuarioController implements Serializable {
             for(int i=0;i<usuarios.size() && !ban; i++){
                 if(usuario.equals(usuarios.get(i).getUsername()) && contrasenia.equals(usuarios.get(i).getPassword()))
                 {
+                    miSession=(HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
                     ban=true;
                 }                                               
             }      
