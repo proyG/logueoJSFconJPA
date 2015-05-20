@@ -110,7 +110,7 @@ public class UsuarioController implements Serializable {
                     fechaActual= new Date();
                     calendarActual.setTime(fechaActual); // Configuramos la fecha que se recibe	
                     calendarActual.add(Calendar.SECOND,30);  // numero de horas a añadir, o restar en caso de horas<0                    
-                    JsfUtil.addErrorMessage("Numero máximo de intentos permitidos, vuelva a intentarlo despues de 20 segundos"); 
+                    JsfUtil.addErrorMessage("Numero máximo de intentos permitidos, vuelva a intentarlo despues de 30 segundos"); 
                     banCont=true;
                 }
                 else{
@@ -125,7 +125,7 @@ public class UsuarioController implements Serializable {
                         JsfUtil.addErrorMessage("Sesion Reactivada, Inicie Sesion nuevamente");          
                     }
                     else{
-                        JsfUtil.addErrorMessage("Numero máximo de intentos permitidos, vuelva a intentarlo despues de 20 segundos");          
+                        JsfUtil.addErrorMessage("Numero máximo de intentos permitidos, vuelva a intentarlo despues de 30 segundos");          
                         //pag="resgistroUsuario";                        
                     }
                         
@@ -218,36 +218,46 @@ public class UsuarioController implements Serializable {
     public void update() {        
         //selected.setPassword(Encrypt.sha512(selected.getPassword()));
          //validar contraseña alfanumerica, minusculas, mayusculas:
-        boolean minus=false, mayus=false, num=false;
-        
-        contrasenia = selected.getPassword();
-        for(int i=0;i<contrasenia.length();i++){
-            char c = contrasenia.charAt(i);
-            if(c>='a'&& c<='z'){
-                minus=true;                              
-            }
-            else if(c>='A'&& c<='Z'){
-                mayus=true;
-            } 
-            else if(c>='1'&& c<='9'){
-                num=true;
-            }
+        contrasenia = Encrypt.sha512(contrasenia);
+        List<Usuario> miLista = getFacade().findAll();
+        Boolean encontrado =false;
+        for(int i=0; i<miLista.size() && !encontrado; i++){
+            if(contrasenia.equals(miLista.get(i).getPassword()) && selected.getUsername().equals(miLista.get(i).getUsername())){
+                encontrado = true;                
+            }            
         }
+        if(encontrado==true){
         
-        if(minus == true && mayus == true && num==true){
-        
-            selected = new Usuario();
-            selected.setUsername(usuario);
-            selected.setPassword(Encrypt.sha512(contrasenia));
+            boolean minus=false, mayus=false, num=false;
 
-            persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioUpdated"));
-            if (!JsfUtil.isValidationFailed()) {            
-                items = null;    // Invalidate list of items to trigger re-query.
-            } 
+            contrasenia = selected.getPassword();
+            for(int i=0;i<contrasenia.length();i++){
+                char c = contrasenia.charAt(i);
+                if(c>='a'&& c<='z'){
+                    minus=true;                              
+                }
+                else if(c>='A'&& c<='Z'){
+                    mayus=true;
+                } 
+                else if(c>='0'&& c<='9'){
+                    num=true;
+                }
+            }
+
+            if(minus == true && mayus == true && num==true){
+
+                selected = new Usuario();
+                selected.setUsername(usuario);
+                selected.setPassword(Encrypt.sha512(contrasenia));
+
+                persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioUpdated"));
+                if (!JsfUtil.isValidationFailed()) {            
+                    items = null;    // Invalidate list of items to trigger re-query.
+                } 
+            }
+            else JsfUtil.addErrorMessage("la contraseña debe tener letras mayusculas, minusculas y numeros");   
         }
-        else JsfUtil.addErrorMessage("la contraseña debe tener letras mayusculas, minusculas y numeros");
-        
-        
+        else JsfUtil.addErrorMessage("Contraseña actual Incorrecta");   
         
         
     }

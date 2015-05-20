@@ -10,6 +10,7 @@
 
         <p:dialog id="UsuarioEditDlg" widgetVar="UsuarioEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditUsuarioTitle}">
             <h:form id="UsuarioEditForm">
+                <p:growl id="growl" sticky="true" life="9000" />
                 <h:panelGroup id="display">
                    
                     <p:panelGrid columns="3" rendered="#{usuarioController.selected != null}">
@@ -18,6 +19,13 @@
                             <f:validateLength minimum="4" />                        
                         </p:inputText>
                         <p:message for="txtUsuario" />
+                        
+                        <h:outputText value="contraseñaActual " />
+                        <p:password weakLabel="debil" promptLabel="constraseña Actual:" goodLabel="buena" strongLabel="Fuerte" 
+                                    id="contraseñaActual" value="#{usuarioController.contrasenia}" feedback="true" 
+                                    required="true"  label="Contraseña">                            
+                        </p:password>
+                        <p:message for="contraseñaActual" />
 
                         <h:outputText value="Constraseña: " />
                         <p:password weakLabel="debil" promptLabel="Ingrese su constraseña" goodLabel="buena" strongLabel="Fuerte" 
@@ -35,11 +43,7 @@
                             </p:password>
                         <p:message for="contraseña2" />
                         
-                    </p:panelGrid>
-                    
-                     
-                    
-                    
+                    </p:panelGrid>                                                                           
                     
                     <p:commandButton actionListener="#{usuarioController.update}" value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UsuarioEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioEditDialog.hide()"/>
