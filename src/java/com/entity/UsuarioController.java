@@ -128,8 +128,7 @@ public class UsuarioController implements Serializable {
                     else{
                         JsfUtil.addErrorMessage("Numero máximo de intentos permitidos, vuelva a intentarlo despues de 30 segundos");          
                         //pag="resgistroUsuario";                        
-                    }
-                        
+                    }                        
                 }                                           		                                
         }
         return pag;
