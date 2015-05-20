@@ -93,7 +93,9 @@ public class UsuarioController implements Serializable {
             }      
             
             if(ban==true)
-            {            
+            { 
+                cont=0;
+                banCont=false;
                 JsfUtil.addSuccessMessage("Bienvienido: "+ usuario);                
                 pag= "usuario/List";
             }
@@ -105,9 +107,11 @@ public class UsuarioController implements Serializable {
         }
         else {                     
                 if(banCont==false){
+                    fechaActual= new Date();
                     calendarActual.setTime(fechaActual); // Configuramos la fecha que se recibe	
                     calendarActual.add(Calendar.SECOND,30);  // numero de horas a añadir, o restar en caso de horas<0                    
-                    JsfUtil.addErrorMessage("Numero máximo de intentos permitidos, vuelva a intentarlo despues de 20 segundos");          
+                    JsfUtil.addErrorMessage("Numero máximo de intentos permitidos, vuelva a intentarlo despues de 20 segundos"); 
+                    banCont=true;
                 }
                 else{
                     Date fecha = new Date();
@@ -125,8 +129,7 @@ public class UsuarioController implements Serializable {
                         //pag="resgistroUsuario";                        
                     }
                         
-                }                                           		                
-                banCont=true;
+                }                                           		                                
         }
         return pag;
     }
