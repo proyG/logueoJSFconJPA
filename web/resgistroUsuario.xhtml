@@ -22,13 +22,17 @@
                     <h:outputText value="Constraseña: " />
                     <p:password weakLabel="debil" promptLabel="Ingrese su constraseña" goodLabel="buena" strongLabel="Fuerte" 
                                 id="contraseña" value="#{usuarioController.contrasenia}" match="contraseña2" feedback="true" 
-                                validatorMessage="Contraseñas NO coinciden" required="true"  label="Contraseña"/>
+                                validatorMessage="Contraseñas NO coinciden" required="true"  label="Contraseña">
+                        <f:validateLength minimum="16" />                        
+                    </p:password>
                     <p:message for="contraseña" />
                     
                     <h:outputText value="Confirme Constraseña: " />
                         <p:password weakLabel="debil" promptLabel="Ingrese su constraseña" goodLabel="buena" strongLabel="Fuerte" 
                                     id="contraseña2" value="#{usuarioController.contrasenia}" feedback="true" required="true"
-                                    label="Confirmar contraseña"/>
+                                    label="Confirmar contraseña">
+                            <f:validateLength minimum="16" />                        
+                        </p:password>
                     <p:message for="contraseña2" />   
                     
                 </h:panelGrid>
@@ -43,6 +47,13 @@
                     <p:link outcome="index" value="Iniciar Sesión"></p:link>
                 </f:facet> 
             </p:toolbar>
+                
+                <br/><br/>
+                <div style="background:#f2f2f2; border:5px solid #fefefe; outline:thin solid #efefef; margin-left: 400; margin-right: 400; ">
+                    <h2 align="center">requisitos para establecer la constraseña:</h2>
+                    <p>- debe contener 16 caracteres como mínimo</p>
+                    <p>- debe contener mayusculas, minusculas y numeros</p>                                        
+                </div>
             
             </div>
         </h:form>

@@ -17,6 +17,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+
 @ManagedBean(name = "usuarioController")
 @SessionScoped
 public class UsuarioController implements Serializable {
@@ -41,29 +42,39 @@ public class UsuarioController implements Serializable {
         this.id_usuario = id_usuario;
     }
     
+    static int cont =0;
     public String login()
     {
-        List<Usuario> usuarios = getFacade().findAll();
-        
-        boolean ban=false;
-        for(int i=0;i<usuarios.size() && !ban; i++){
-            if(usuario.equals(usuarios.get(i).getUsername()) && contrasenia.equals(usuarios.get(i).getPassword()))
-            {
-                ban=true;
-            }                                               
-        }        
-        
-        //if(current.getUsername().equals("camilo") && current.getPassword().equals("123"))
-        if(ban==true)
-        {            
-            JsfUtil.addSuccessMessage("Bienvienido: "+ usuario);
-            return "usuario/List";
+        String pag="index";
+        cont++;
+        if(cont<3){
+            
+            List<Usuario> usuarios = getFacade().findAll();
+
+            boolean ban=false;
+            for(int i=0;i<usuarios.size() && !ban; i++){
+                if(usuario.equals(usuarios.get(i).getUsername()) && contrasenia.equals(usuarios.get(i).getPassword()))
+                {
+                    ban=true;
+                }                                               
+            }      
+            
+            if(ban==true)
+            {            
+                JsfUtil.addSuccessMessage("Bienvienido: "+ usuario);                
+                pag= "usuario/List";
+            }
+            else
+            { 
+                JsfUtil.addErrorMessage("Nombre de usuario o Contraseña incorrectos");
+                pag= "index";
+            }
         }
-        else
-        { 
-            JsfUtil.addErrorMessage("Nombre de usuario o Contraseña incorrectos");
-            return "index";
+        else {                
+		JsfUtil.addErrorMessage("Numero máximo de intentos permitidos");          
+                pag="resgistroUsuario";
         }
+        return pag;
     }
     
     public String getUsuario() {
@@ -115,14 +126,35 @@ public class UsuarioController implements Serializable {
     
     //registrar un usuario desde formulario de registro
     public void RegistrarUsuario(){
-        selected = new Usuario();
-        selected.setUsername(usuario);
-        selected.setPassword(contrasenia);
         
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioCreated"));        
-        if (!JsfUtil.isValidationFailed()) {            
-            items = null;    // Invalidate list of items to trigger re-query.
-        }        
+        //validar contraseña alfanumerica, minusculas, mayusculas:
+        boolean minus=false, mayus=false, num=false;
+        for(int i=0;i<contrasenia.length();i++){
+            char c = contrasenia.charAt(i);
+            if(c>='a'&& c<='z'){
+                minus=true;                              
+            }
+            else if(c>='A'&& c<='Z'){
+                mayus=true;
+            } 
+            else if(c>='1'&& c<='9'){
+                num=true;
+            }
+        }
+        
+        if(minus == true && mayus == true && num==true){
+        
+            selected = new Usuario();
+            selected.setUsername(usuario);
+            selected.setPassword(contrasenia);
+
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioCreated"));        
+            if (!JsfUtil.isValidationFailed()) {            
+                items = null;    // Invalidate list of items to trigger re-query.
+            } 
+        }
+        else JsfUtil.addErrorMessage("la contraseña debe tener letras mayusculas, minusculas y numeros");
+        
     }       
 
     public void update() {

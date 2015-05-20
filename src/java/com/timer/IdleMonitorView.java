@@ -22,7 +22,7 @@ public class IdleMonitorView {
         JsfUtil.addSuccessMessage("Sin Actividad, Su session a cadudacdo por inactividad ");
         FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         //FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        FacesContext.getCurrentInstance().getExternalContext().redirect("faces/index.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("http://localhost:8080/logueoJSFconJPA/index.xhtml");
     }
  
     public void onActive() {
