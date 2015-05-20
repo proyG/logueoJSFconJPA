@@ -5,6 +5,8 @@ import com.entity.util.JsfUtil;
 import com.entity.util.JsfUtil.PersistAction;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -60,14 +62,21 @@ public class UsuarioController implements Serializable {
         this.id_usuario = id_usuario;
     }
     
-    int cont;
+    static int cont=0;
     //inicializo el contador en cero
+    static Date fechaActual = new Date();
+    static Calendar calendarActual = Calendar.getInstance();	
+    static Boolean banCont = false;
+    
     public String login()
-    {
+    {              
+            
         String pag="index";
         
-         setContador(getContador() + 1);
-         cont = getContador();
+         //setContador(getContador() + 1);
+         //cont = getContador();
+        cont++;
+        
         //cont++;
         if(cont<3){
             
@@ -94,9 +103,30 @@ public class UsuarioController implements Serializable {
                 pag= "index";
             }
         }
-        else {                
-		JsfUtil.addErrorMessage("Numero máximo de intentos permitidos");          
-                pag="resgistroUsuario";
+        else {                     
+                if(banCont==false){
+                    calendarActual.setTime(fechaActual); // Configuramos la fecha que se recibe	
+                    calendarActual.add(Calendar.SECOND,30);  // numero de horas a añadir, o restar en caso de horas<0                    
+                    JsfUtil.addErrorMessage("Numero máximo de intentos permitidos, vuelva a intentarlo despues de 20 segundos");          
+                }
+                else{
+                    Date fecha = new Date();
+                    Calendar calend = Calendar.getInstance();
+                    calend.setTime(fecha); 
+                    //JsfUtil.addErrorMessage("fechaActual: "+calendarActual.getTime()+", fecha: "+calend.getTime());          
+                    
+                    if(calend.after(calendarActual)){
+                        cont=0;
+                        banCont=false;
+                        JsfUtil.addErrorMessage("Sesion Reactivada, Inicie Sesion nuevamente");          
+                    }
+                    else{
+                        JsfUtil.addErrorMessage("Numero máximo de intentos permitidos, vuelva a intentarlo despues de 20 segundos");          
+                        //pag="resgistroUsuario";                        
+                    }
+                        
+                }                                           		                
+                banCont=true;
         }
         return pag;
     }
@@ -162,7 +192,7 @@ public class UsuarioController implements Serializable {
             else if(c>='A'&& c<='Z'){
                 mayus=true;
             } 
-            else if(c>='1'&& c<='9'){
+            else if(c>='0'&& c<='9'){
                 num=true;
             }
         }
