@@ -88,6 +88,7 @@ public class UsuarioController implements Serializable {
                 if(usuario.equals(usuarios.get(i).getUsername()) && contrasenia.equals(usuarios.get(i).getPassword()))
                 {
                     miSession=(HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+                    miSession.setAttribute("usuario", usuario);
                     ban=true;
                 }                                               
             }      
