@@ -5,6 +5,7 @@
  */
 package com.timer;
 
+import com.entity.UsuarioController;
 import com.entity.util.JsfUtil;
 //import com.entity.util.JsfUtil.PersistAction;
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class IdleMonitorView {
         
         JsfUtil.addSuccessMessage("Sin Actividad, Su session a cadudacdo por inactividad ");
         FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        //FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         FacesContext.getCurrentInstance().getExternalContext().redirect("http://localhost:8080/logueoJSFconJPA/index.xhtml");
     }
  

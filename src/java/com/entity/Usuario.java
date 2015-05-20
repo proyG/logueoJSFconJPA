@@ -37,7 +37,7 @@ public class Usuario implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "username")
     private String username;
-    @Size(max = 50)
+    @Size(max = 200)
     @Column(name = "password")
     private String password;
     @Basic(optional = false)

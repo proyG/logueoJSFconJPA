@@ -1,5 +1,6 @@
 package com.entity;
 
+import com.Encriptacion.Encrypt;
 import com.entity.util.JsfUtil;
 import com.entity.util.JsfUtil.PersistAction;
 
@@ -30,10 +31,20 @@ public class UsuarioController implements Serializable {
     private int id_usuario;
     private String usuario;
     private String contrasenia;
+    public static int contador;
 
     public UsuarioController() {
+        setContador(0);
     }
 
+    public int getContador() {
+        return contador;
+    }
+
+    public void setContador(int contador) {
+        this.contador = contador;
+    }
+    
     public int getId_usuario() {
         return id_usuario;
     }
@@ -42,15 +53,20 @@ public class UsuarioController implements Serializable {
         this.id_usuario = id_usuario;
     }
     
-    static int cont =0;
+    int cont;
+    //inicializo el contador en cero
     public String login()
     {
         String pag="index";
-        cont++;
+        
+         setContador(getContador() + 1);
+         cont = getContador();
+        //cont++;
         if(cont<3){
             
             List<Usuario> usuarios = getFacade().findAll();
 
+            contrasenia = Encrypt.sha512(contrasenia);
             boolean ban=false;
             for(int i=0;i<usuarios.size() && !ban; i++){
                 if(usuario.equals(usuarios.get(i).getUsername()) && contrasenia.equals(usuarios.get(i).getPassword()))
@@ -118,6 +134,7 @@ public class UsuarioController implements Serializable {
     }
 
     public void create() {
+        selected.setPassword(Encrypt.sha512(selected.getPassword()));
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -146,7 +163,7 @@ public class UsuarioController implements Serializable {
         
             selected = new Usuario();
             selected.setUsername(usuario);
-            selected.setPassword(contrasenia);
+            selected.setPassword(Encrypt.sha512(contrasenia));
 
             persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioCreated"));        
             if (!JsfUtil.isValidationFailed()) {            

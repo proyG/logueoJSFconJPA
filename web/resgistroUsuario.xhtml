@@ -11,7 +11,7 @@
         <h:form id="form">
             <p:growl id="growl" sticky="true" life="3000" />
             <div style="margin-left: 400px; margin-right: 450px">
-            <p:panel id="panel" header="Formulario de Registro">                
+                <p:panel id="panel" header="Formulario de Registro" closable="true">                
                 <h:panelGrid columns="3" cellpadding="5">
                     <p:outputLabel for="txtUsuario" value="Nombre de usuario" />
                     <p:inputText id="txtUsuario" value="#{usuarioController.usuario}" required="true" label="Nombre Usuario">
