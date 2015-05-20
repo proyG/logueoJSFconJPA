@@ -5,6 +5,8 @@
  */
 package com.timer;
 
+import com.entity.util.JsfUtil;
+//import com.entity.util.JsfUtil.PersistAction;
 import java.io.IOException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -14,15 +16,19 @@ import javax.faces.context.FacesContext;
 public class IdleMonitorView {
      
     public void onIdle() throws IOException {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, 
-                                        "Sin Actividad", "Su session a cadudacdo por inactividad"));
+        /*FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, 
+                                        "Sin Actividad", "Su session a cadudacdo por inactividad"));*/
+        
+        JsfUtil.addSuccessMessage("Sin Actividad, Su session a cadudacdo por inactividad ");
         FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         //FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         FacesContext.getCurrentInstance().getExternalContext().redirect("faces/index.xhtml");
     }
  
     public void onActive() {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-                                        "Bienvenido nuevamente", "Session activa en estos momentos"));
+        
+        JsfUtil.addSuccessMessage("Bienvenido nuevamente, sesion activa en estos momentos");
+        /*FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                                        "Bienvenido nuevamente", "Session activa en estos momentos"));*/
     }
 }

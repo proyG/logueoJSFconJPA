@@ -14,8 +14,7 @@
         </ui:define>
 
         <ui:define name="body">
-            <h:form id="UsuarioListForm">
-                <p:growl id="growl" sticky="true" life="3000" />
+            <h:form id="UsuarioListForm">               
                 <p:panel header="#{bundle.ListUsuarioTitle}">
                     <p:dataTable id="datalist" value="#{usuarioController.items}" var="item"
                                  selectionMode="single" selection="#{usuarioController.selected}"
@@ -52,24 +51,8 @@
 
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
-            <br></br>
-            
-            <h:form>
-                <h:commandLink
-                value="Cerrar sesion"
-                action="#{userBB.logout}"/>                             
-            </h:form>
-           
-            <h:form>
-                <p:growl id="messages" showDetail="true" sticky="true" />
-
-                <p:idleMonitor timeout="5000">
-                    <p:ajax event="idle" listener="#{idleMonitorView.onIdle}" update="messages" />
-                    <p:ajax event="active" listener="#{idleMonitorView.onActive}" update="messages" />
-                </p:idleMonitor>
-            </h:form>
-           
+            <ui:include src="View.xhtml"/> 
+            <ui:include src="timer.xhtml"/>            
         </ui:define>
     </ui:composition>
 

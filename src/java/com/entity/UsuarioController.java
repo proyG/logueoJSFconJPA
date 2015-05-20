@@ -56,12 +56,12 @@ public class UsuarioController implements Serializable {
         //if(current.getUsername().equals("camilo") && current.getPassword().equals("123"))
         if(ban==true)
         {            
-            JsfUtil.addSuccessMessage("Bienvienido: "+usuario);
+            JsfUtil.addSuccessMessage("Bienvienido: "+ usuario);
             return "usuario/List";
         }
         else
         { 
-            JsfUtil.addErrorMessage("nombre de usuario o contraseña incorrectos");
+            JsfUtil.addErrorMessage("Nombre de usuario o Contraseña incorrectos");
             return "index";
         }
     }
