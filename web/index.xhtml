@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Pagina Principal</title>
         <h:outputStylesheet name="css/jsfcrud.css"/>
         
         <script type="text/javascript">
@@ -36,7 +36,7 @@
                     <h:outputLabel for="contraseña" value="Contraseña: " />
                     <p:password id="contraseña" value="#{usuarioController.contrasenia}" required="true" label="Contraseña" />
                     <f:facet name="footer">
-                        <p:commandButton action="#{usuarioController.login()}" value="iniciar Sesion" update="growl"/>
+                        <p:commandButton ajax="false" action="#{usuarioController.login()}" value="iniciar Sesion" update="growl"/>
                     </f:facet> 
                 </h:panelGrid>
                 
@@ -44,9 +44,7 @@
                 <p:link outcome="resgistroUsuario" value="Registrate">               
                 </p:link>
             </p:confirmDialog>           
-        </h:form>    
-        
+        </h:form>            
     </h:body>
-
 </html>
 

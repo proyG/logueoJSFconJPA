@@ -180,52 +180,59 @@ public class UsuarioController implements Serializable {
     //registrar un usuario desde formulario de registro
     public void RegistrarUsuario(){
         
-        //validar contraseña alfanumerica, minusculas, mayusculas:
-        boolean minus=false, mayus=false, num=false, especial=false;
-        for(int i=0;i<contrasenia.length();i++){
-            char c = contrasenia.charAt(i);
-            if(c>='a'&& c<='z'){
-                minus=true;                              
-            }
-            else if(c>='A'&& c<='Z'){
-                mayus=true;
-            } 
-            else if(c>='0'&& c<='9'){
-                num=true;
-            }
-            else if((int)c>32 && (int)c<=47){
-                especial =true;                
-            }
-            else if((int)c>=58 && (int)c<=64){
-                especial =true;                
-            }
-            else if((int)c>=91 && (int)c<=96){
-                especial =true;                
-            }
-            else if((int)c>=123 && (int)c<=126){
-                especial =true;                
-            }
-            else if((int)c==168 || (int)c==173){
-                especial =true;                
-            }
-        }
+        //verifico si el usuario existe o no
+        List<Usuario> usuarios = getFacade().findAll();
+        boolean banExiste = false;
         
-        if(minus == true && mayus == true && num==true && especial==true){
+        for (int i = 0; i < usuarios.size() && !banExiste; i++) {
+            if (usuario.equals(usuarios.get(i).getUsername())) {
+                   banExiste=true; 
+            }            
+        }   
         
-            selected = new Usuario();
-            selected.setUsername(usuario);
-            selected.setPassword(Encrypt.sha512(contrasenia));
+        if (banExiste == false) {
+            //validar contraseña alfanumerica, minusculas, mayusculas:
+            boolean minus = false, mayus = false, num = false, especial = false;
+            for (int i = 0; i < contrasenia.length(); i++) {
+                char c = contrasenia.charAt(i);
+                if (c >= 'a' && c <= 'z') {
+                    minus = true;
+                } else if (c >= 'A' && c <= 'Z') {
+                    mayus = true;
+                } else if (c >= '0' && c <= '9') {
+                    num = true;
+                } else if ((int) c > 32 && (int) c <= 47) {
+                    especial = true;
+                } else if ((int) c >= 58 && (int) c <= 64) {
+                    especial = true;
+                } else if ((int) c >= 91 && (int) c <= 96) {
+                    especial = true;
+                } else if ((int) c >= 123 && (int) c <= 126) {
+                    especial = true;
+                } else if ((int) c == 168 || (int) c == 173) {
+                    especial = true;
+                }
+            }
+            if (minus == true && mayus == true && num == true && especial == true) {
 
-            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioCreated"));        
-            if (!JsfUtil.isValidationFailed()) {            
-                items = null;    // Invalidate list of items to trigger re-query.
-            } 
+                selected = new Usuario();
+                selected.setUsername(usuario);
+                selected.setPassword(Encrypt.sha512(contrasenia));
+
+                persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioCreated"));
+                if (!JsfUtil.isValidationFailed()) {
+                    items = null;    // Invalidate list of items to trigger re-query.
+                }
+            } else {
+                JsfUtil.addErrorMessage("La contraseña debe tener letras mayusculas, minusculas, numeros y caracteres especiales");
+            }
         }
-        else JsfUtil.addErrorMessage("La contraseña debe tener letras mayusculas, minusculas, numeros y caracteres especiales");
+        else {
+            JsfUtil.addErrorMessage("El usuario ya existe, por favor ingrese otro");
+        }
         
         selected=null;
-        usuario = null;
-        
+        usuario = null;        
     }       
 
     public void update() {                
