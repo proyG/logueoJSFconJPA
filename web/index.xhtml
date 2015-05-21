@@ -29,7 +29,9 @@
             <p:confirmDialog message="inicie sesion para acceder al sistema" header="Login" widgetVar="dlg" visible="true" closable="false" showEffect="fade" hideEffect="explode"  >
                 <h:panelGrid columns="2" cellpadding="5">
                     <h:outputLabel for="usuario" value="Usuario" />
-                    <p:inputText id="usuario" value="#{usuarioController.usuario}" required="true" label="Usuario"/>
+                    <p:inputText id="usuario" value="#{usuarioController.usuario}" required="true" label="Usuario" validatorMessage="campo usuario: no se permiten caracetes especiales">
+                        <f:validateRegex pattern="^[a-zA-Z]+[0-9]$"/>
+                    </p:inputText>
 
                     <h:outputLabel for="contraseña" value="Contraseña: " />
                     <p:password id="contraseña" value="#{usuarioController.contrasenia}" required="true" label="Contraseña" />

@@ -14,8 +14,9 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="3" rendered="#{usuarioController.selected != null}">
                             <p:outputLabel for="txtUsuario" value="Nombre de usuario" />
-                        <p:inputText id="txtUsuario" value="#{usuarioController.usuario}" required="true" label="Nombre Usuario">
-                            <f:validateLength minimum="4" />                        
+                        <p:inputText id="txtUsuario" value="#{usuarioController.usuario}" required="true" label="Nombre Usuario" validatorMessage="campo usuario: no se permiten caracetes especiales">
+                            <f:validateLength minimum="4" /> 
+                            <f:validateRegex pattern="^[a-zA-Z]+[0-9]$"/>                            
                         </p:inputText>
                         <p:message for="txtUsuario" />
 

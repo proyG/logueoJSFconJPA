@@ -14,11 +14,12 @@
 
                 <p:confirmDialog message="Ingrese sus Datos para registrarlos en la Base de Datos!" header="Formulario de Registro" widgetVar="dlg" visible="true" closable="false" showEffect="fade" hideEffect="explode"  >
                     <!--<div style="margin-left: 400px; margin-right: 450px">-->
-                    <p:panel id="panel" header="Datos" closable="true">                
+                    <p:panel id="panel" header="Datos" closable="false">                
                         <h:panelGrid columns="3" cellpadding="5">
                             <p:outputLabel for="txtUsuario" value="Nombre de usuario" />
-                            <p:inputText id="txtUsuario" value="#{usuarioController.usuario}" required="true" label="Nombre Usuario">
-                                <f:validateLength minimum="4" />                        
+                            <p:inputText id="txtUsuario" value="#{usuarioController.usuario}" required="true" label="Nombre Usuario" validatorMessage="campo usuario: no se permiten caracetes especiales">
+                                <f:validateLength minimum="4" />  
+                                <f:validateRegex pattern="^[a-zA-Z]+[0-9]$"/>
                             </p:inputText>
                             <p:message for="txtUsuario" />
 
@@ -54,7 +55,7 @@
                         <div style="background:#f2f2f2; border:5px solid #fefefe; outline:thin solid #efefef; margin-left: 400; margin-right: 400; ">
                             <h2 align="center">requisitos para establecer la constraseña:</h2>
                             <p>- debe contener 16 caracteres como mínimo</p>
-                            <p>- debe contener mayusculas, minusculas y numeros</p>                                        
+                            <p>- debe contener mayusculas, minusculas, numeros y caracteres especiales</p>                            
                         </div>        
                     </p:panel>
                     

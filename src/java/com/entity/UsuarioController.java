@@ -69,15 +69,10 @@ public class UsuarioController implements Serializable {
     static Boolean banCont = false;
     
     public String login()
-    {              
-            
-        String pag="index";
+    {                        
+        String pag="index";        
+        cont++;       
         
-         //setContador(getContador() + 1);
-         //cont = getContador();
-        cont++;
-        
-        //cont++;
         if(cont<3){
             
             List<Usuario> usuarios = getFacade().findAll();
@@ -117,8 +112,7 @@ public class UsuarioController implements Serializable {
                 else{
                     Date fecha = new Date();
                     Calendar calend = Calendar.getInstance();
-                    calend.setTime(fecha); 
-                    //JsfUtil.addErrorMessage("fechaActual: "+calendarActual.getTime()+", fecha: "+calend.getTime());          
+                    calend.setTime(fecha);                     
                     
                     if(calend.after(calendarActual)){
                         cont=0;
@@ -126,11 +120,12 @@ public class UsuarioController implements Serializable {
                         JsfUtil.addErrorMessage("Sesion Reactivada, Inicie Sesion nuevamente");          
                     }
                     else{
-                        JsfUtil.addErrorMessage("Numero máximo de intentos permitidos, vuelva a intentarlo despues de 30 segundos");          
-                        //pag="resgistroUsuario";                        
+                        JsfUtil.addErrorMessage("Numero máximo de intentos permitidos, vuelva a intentarlo despues de 30 segundos");                                  
                     }                        
                 }                                           		                                
         }
+        selected = null;
+        usuario = null;        
         return pag;
     }
     
@@ -186,7 +181,7 @@ public class UsuarioController implements Serializable {
     public void RegistrarUsuario(){
         
         //validar contraseña alfanumerica, minusculas, mayusculas:
-        boolean minus=false, mayus=false, num=false;
+        boolean minus=false, mayus=false, num=false, especial=false;
         for(int i=0;i<contrasenia.length();i++){
             char c = contrasenia.charAt(i);
             if(c>='a'&& c<='z'){
@@ -198,9 +193,24 @@ public class UsuarioController implements Serializable {
             else if(c>='0'&& c<='9'){
                 num=true;
             }
+            else if((int)c>32 && (int)c<=47){
+                especial =true;                
+            }
+            else if((int)c>=58 && (int)c<=64){
+                especial =true;                
+            }
+            else if((int)c>=91 && (int)c<=96){
+                especial =true;                
+            }
+            else if((int)c>=123 && (int)c<=126){
+                especial =true;                
+            }
+            else if((int)c==168 || (int)c==173){
+                especial =true;                
+            }
         }
         
-        if(minus == true && mayus == true && num==true){
+        if(minus == true && mayus == true && num==true && especial==true){
         
             selected = new Usuario();
             selected.setUsername(usuario);
@@ -211,7 +221,10 @@ public class UsuarioController implements Serializable {
                 items = null;    // Invalidate list of items to trigger re-query.
             } 
         }
-        else JsfUtil.addErrorMessage("la contraseña debe tener letras mayusculas, minusculas y numeros");
+        else JsfUtil.addErrorMessage("la contraseña debe tener letras mayusculas, minusculas, numeros y caracteres especiales");
+        
+        selected=null;
+        usuario = null;
         
     }       
 
@@ -228,23 +241,36 @@ public class UsuarioController implements Serializable {
         }
         if(encontrado==true){
         
-            boolean minus=false, mayus=false, num=false;
-
-            contrasenia = selected.getPassword();
-            for(int i=0;i<contrasenia.length();i++){
-                char c = contrasenia.charAt(i);
-                if(c>='a'&& c<='z'){
-                    minus=true;                              
-                }
-                else if(c>='A'&& c<='Z'){
-                    mayus=true;
-                } 
-                else if(c>='0'&& c<='9'){
-                    num=true;
-                }
+            boolean minus=false, mayus=false, num=false, especial=false;
+        for(int i=0;i<contrasenia.length();i++){
+            char c = contrasenia.charAt(i);
+            if(c>='a'&& c<='z'){
+                minus=true;                              
             }
+            else if(c>='A'&& c<='Z'){
+                mayus=true;
+            } 
+            else if(c>='0'&& c<='9'){
+                num=true;
+            }
+            else if((int)c>32 && (int)c<=47){
+                especial =true;                
+            }
+            else if((int)c>=58 && (int)c<=64){
+                especial =true;                
+            }
+            else if((int)c>=91 && (int)c<=96){
+                especial =true;                
+            }
+            else if((int)c>=123 && (int)c<=126){
+                especial =true;                
+            }
+            else if((int)c==168 || (int)c==173){
+                especial =true;                
+            }
+        }
 
-            if(minus == true && mayus == true && num==true){
+            if(minus == true && mayus == true && num==true && especial==true){
 
                 selected = new Usuario();
                 selected.setUsername(usuario);
