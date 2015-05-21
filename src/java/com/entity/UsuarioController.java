@@ -228,8 +228,7 @@ public class UsuarioController implements Serializable {
         
     }       
 
-    public void update() {        
-        //selected.setPassword(Encrypt.sha512(selected.getPassword()));
+    public void update() {                
          //validar contraseña alfanumerica, minusculas, mayusculas:
         contrasenia = Encrypt.sha512(contrasenia);
         List<Usuario> miLista = getFacade().findAll();
@@ -240,7 +239,7 @@ public class UsuarioController implements Serializable {
             }            
         }
         if(encontrado==true){
-        
+            contrasenia=selected.getPassword();
             boolean minus=false, mayus=false, num=false, especial=false;
         for(int i=0;i<contrasenia.length();i++){
             char c = contrasenia.charAt(i);
@@ -272,8 +271,8 @@ public class UsuarioController implements Serializable {
 
             if(minus == true && mayus == true && num==true && especial==true){
 
-                selected = new Usuario();
-                selected.setUsername(usuario);
+                //selected = new Usuario();
+                //selected.setUsername(usuario);
                 selected.setPassword(Encrypt.sha512(contrasenia));
 
                 persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioUpdated"));
@@ -281,7 +280,7 @@ public class UsuarioController implements Serializable {
                     items = null;    // Invalidate list of items to trigger re-query.
                 } 
             }
-            else JsfUtil.addErrorMessage("La contraseña debe tener letras mayusculas, minusculas, numeros y caracteres especiales");
+            else JsfUtil.addErrorMessage("la contraseña debe tener letras mayusculas, minusculas y numeros");   
         }
         else JsfUtil.addErrorMessage("Contraseña actual Incorrecta");   
         
