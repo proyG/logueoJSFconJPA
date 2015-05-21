@@ -10,13 +10,13 @@
 
         <p:dialog id="UsuarioCreateDlg" widgetVar="UsuarioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateUsuarioTitle}">
             <h:form id="UsuarioCreateForm">
-                <p:growl id="growl" sticky="true" life="3000" />
+                <p:growl id="growl" showDetail="true" life="3000" />
                 <h:panelGroup id="display">
                     <p:panelGrid columns="3" rendered="#{usuarioController.selected != null}">
                             <p:outputLabel for="txtUsuario" value="Nombre de usuario" />
-                        <p:inputText id="txtUsuario" value="#{usuarioController.usuario}" required="true" label="Nombre Usuario" validatorMessage="campo usuario: no se permiten caracetes especiales">
+                        <p:inputText id="txtUsuario" value="#{usuarioController.usuario}" required="true" label="Nombre Usuario" validatorMessage="Campo usuario: no se permiten caracetes especiales">
                             <f:validateLength minimum="4" /> 
-                            <f:validateRegex pattern="^[a-zA-Z]+[0-9]$"/>                            
+                            <f:validateRegex pattern="^[a-zA-Z[0-9]]+$" />
                         </p:inputText>
                         <p:message for="txtUsuario" />
 

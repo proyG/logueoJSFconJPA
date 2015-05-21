@@ -92,7 +92,7 @@ public class UsuarioController implements Serializable {
             { 
                 cont=0;
                 banCont=false;
-                JsfUtil.addSuccessMessage("Bienvienido: "+ usuario);                
+                //JsfUtil.addSuccessMessage("Bienvienido: "+ usuario);                
                 pag= "usuario/List";
             }
             else
@@ -221,7 +221,7 @@ public class UsuarioController implements Serializable {
                 items = null;    // Invalidate list of items to trigger re-query.
             } 
         }
-        else JsfUtil.addErrorMessage("la contraseña debe tener letras mayusculas, minusculas, numeros y caracteres especiales");
+        else JsfUtil.addErrorMessage("La contraseña debe tener letras mayusculas, minusculas, numeros y caracteres especiales");
         
         selected=null;
         usuario = null;
@@ -281,7 +281,7 @@ public class UsuarioController implements Serializable {
                     items = null;    // Invalidate list of items to trigger re-query.
                 } 
             }
-            else JsfUtil.addErrorMessage("la contraseña debe tener letras mayusculas, minusculas y numeros");   
+            else JsfUtil.addErrorMessage("La contraseña debe tener letras mayusculas, minusculas, numeros y caracteres especiales");
         }
         else JsfUtil.addErrorMessage("Contraseña actual Incorrecta");   
         
