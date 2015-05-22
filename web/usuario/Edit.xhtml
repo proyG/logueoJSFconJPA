@@ -33,18 +33,17 @@
                         <h:outputText value="Constraseña: " />
                         <p:password weakLabel="debil" promptLabel="Ingrese su constraseña" goodLabel="buena" strongLabel="Fuerte" 
                                     id="contraseña" value="#{usuarioController.selected.password}" match="contraseña2" feedback="true" 
-                                    validatorMessage="Contraseñas NO coinciden" required="true"  label="Contraseña">
+                                    required="true"  label="Contraseña">
                             <f:validateLength minimum="16" />
-                            <f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})" />
+                           <!-- <f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})" />-->
                         </p:password>
                         <!--<p:message for="contraseña" />-->
 
                         <h:outputText value="Confirme Constraseña: " />
                         <p:password weakLabel="debil" promptLabel="Ingrese su constraseña" goodLabel="buena" strongLabel="Fuerte" 
                                     id="contraseña2" value="#{usuarioController.selected.password}" feedback="true" required="true"
-                                    label="Confirmar contraseña" validatorMessage="debe conterner MAYUSCULAS, miniculas, numeros, caracteres especiales">
-                            <f:validateLength minimum="16" /> 
-                            <f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})" />
+                                    label="Confirmar contraseña">
+                            <f:validateLength minimum="16" />                             
                         </p:password>
                         <!--<p:message for="contraseña2" />-->
 

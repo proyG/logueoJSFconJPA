@@ -202,7 +202,7 @@ public class UsuarioController implements Serializable {
         
         if (existe == false) {
             //validar contraseña alfanumerica, minusculas, mayusculas:
-           /* boolean minus = false, mayus = false, num = false, especial = false;
+            boolean minus = false, mayus = false, num = false, especial = false;
             for (int i = 0; i < contrasenia.length(); i++) {
                 char c = contrasenia.charAt(i);
                 if (c >= 'a' && c <= 'z') {
@@ -223,7 +223,7 @@ public class UsuarioController implements Serializable {
                     especial = true;
                 }
             }
-            if (minus == true && mayus == true && num == true && especial == true) {*/
+            if (minus == true && mayus == true && num == true && especial == true) {
 
                 selected = new Usuario();
                 selected.setUsername(usuario);
@@ -233,9 +233,9 @@ public class UsuarioController implements Serializable {
                 if (!JsfUtil.isValidationFailed()) {
                     items = null;    // Invalidate list of items to trigger re-query.
                 }
-            /*} else {
+            } else {
                 JsfUtil.addErrorMessage("La contraseña debe tener letras mayusculas, minusculas, numeros y caracteres especiales");
-            }*/
+            }
         }
         else {
             JsfUtil.addErrorMessage("El usuario ya existe, por favor ingresa otro nombre");
@@ -261,7 +261,7 @@ public class UsuarioController implements Serializable {
         
         if (encontrado == true) {
             contrasenia = selected.getPassword();
-        /*    boolean minus = false, mayus = false, num = false, especial = false;
+           boolean minus = false, mayus = false, num = false, especial = false;
             for (int i = 0; i < contrasenia.length(); i++) {
                 char c = contrasenia.charAt(i);
                 if (c >= 'a' && c <= 'z') {
@@ -283,7 +283,7 @@ public class UsuarioController implements Serializable {
                 }
             }
 
-            if (minus == true && mayus == true && num == true && especial == true) {*/
+            if (minus == true && mayus == true && num == true && especial == true) {
 
                 //selected = new Usuario();
                 //selected.setUsername(usuario);
@@ -293,9 +293,9 @@ public class UsuarioController implements Serializable {
                 if (!JsfUtil.isValidationFailed()) {
                     items = null;    // Invalidate list of items to trigger re-query.
                 }
-            /*} else {
+            } else {
                 JsfUtil.addErrorMessage("la contraseña debe tener letras mayusculas, minusculas y numeros");
-            }*/
+            }
         } else {
             JsfUtil.addErrorMessage("Contraseña actual Incorrecta");
         }
