@@ -15,8 +15,7 @@ import javax.faces.context.FacesContext;
  
 @ManagedBean
 public class IdleMonitorView {
-     
-    public void onIdle() throws IOException {
+    public void onIdle() throws IOException {     
         /*FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, 
                                         "Sin Actividad", "Su session a cadudacdo por inactividad"));*/
         

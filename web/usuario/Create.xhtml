@@ -9,33 +9,36 @@
     <ui:composition>
 
         <p:dialog id="UsuarioCreateDlg" widgetVar="UsuarioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateUsuarioTitle}">
-            <h:form id="UsuarioCreateForm">
-                <p:growl id="growl" showDetail="true" life="3000" />
+            <h:form id="UsuarioCreateForm">                
                 <h:panelGroup id="display">
                     <p:panelGrid columns="3" rendered="#{usuarioController.selected != null}">
-                            <p:outputLabel for="txtUsuario" value="Nombre de usuario" />
-                        <p:inputText id="txtUsuario" value="#{usuarioController.usuario}" required="true" label="Nombre Usuario" validatorMessage="Campo usuario: no se permiten caracetes especiales">
+                        <p:outputLabel for="txtUsuario" value="Nombre de usuario" />
+                        <p:inputText id="txtUsuario" value="#{usuarioController.usuario}" required="true" 
+                                     label="Nombre Usuario" validatorMessage="Campo usuario: no se 
+                                     permiten caracetes especiales" autocomplete="off">
                             <f:validateLength minimum="4" /> 
                             <f:validateRegex pattern="^[a-zA-Z[0-9]]+$" />
                         </p:inputText>
-                        <p:message for="txtUsuario" />
+                        <!--<p:message for="txtUsuario" />-->
 
                         <h:outputText value="Constraseña: " />
                         <p:password weakLabel="debil" promptLabel="Ingrese su constraseña" goodLabel="buena" strongLabel="Fuerte" 
                                     id="contraseña" value="#{usuarioController.contrasenia}" match="contraseña2" feedback="true" 
                                     validatorMessage="Contraseñas NO coinciden" required="true"  label="Contraseña">
-                            <f:validateLength minimum="16" />                        
+                            <f:validateLength minimum="16" /> 
+                            <f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})" />
                         </p:password>
-                        <p:message for="contraseña" />
+                        <!--<p:message for="contraseña" />-->
 
                         <h:outputText value="Confirme Constraseña: " />
-                            <p:password weakLabel="debil" promptLabel="Ingrese su constraseña" goodLabel="buena" strongLabel="Fuerte" 
-                                        id="contraseña2" value="#{usuarioController.contrasenia}" feedback="true" required="true"
-                                        label="Confirmar contraseña">
-                                <f:validateLength minimum="16" />                        
-                            </p:password>
-                        <p:message for="contraseña2" />
-                        
+                        <p:password weakLabel="debil" promptLabel="Ingrese su constraseña" goodLabel="buena" strongLabel="Fuerte" 
+                                    id="contraseña2" value="#{usuarioController.contrasenia}" feedback="true" required="true"
+                                    label="Confirmar contraseña" validatorMessage="debe conterner MAYUSCULAS, miniculas, numeros, caracteres especiales">
+                            <f:validateLength minimum="16" />
+                            <f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})" />
+                        </p:password>
+                        <!--<p:message for="contraseña2" />-->
+
                     </p:panelGrid>
                     <p:commandButton value="Registrar" update="display,:UsuarioListForm:datalist,:growl" actionListener="#{usuarioController.RegistrarUsuario}" style="margin-right:20px;" oncomplete="handleSubmit(args,'UsuarioCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioCreateDialog.hide()"/>
