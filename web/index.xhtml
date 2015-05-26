@@ -8,11 +8,11 @@
     <h:head>
         <title>Pagina Principal</title>
         <h:outputStylesheet name="css/jsfcrud.css"/>
-        
+
         <script type="text/javascript">
             function handleLoginRequest(xhr, status, args) {
-                if(args.validationFailed || !args.loggedIn) {
-                    PF('dlg').jq.effect("shake", {times:5}, 100);
+                if (args.validationFailed || !args.loggedIn) {
+                    PF('dlg').jq.effect("shake", {times: 5}, 100);
                 }
                 else {
                     PF('dlg').hide();
@@ -21,11 +21,11 @@
             }
         </script>
     </h:head>
-    <h:body>              
-         <h:form id="formIndex">            
-             <p:growl id="msgIndex" sticky="true"/>
+    <h:body>    
+        <h:form id="formIndex">            
+            <p:growl id="msgIndex" sticky="true"/>
 
-            
+
             <p:confirmDialog message="inicie sesion para acceder al sistema" header="Login" widgetVar="dlg" visible="true" closable="false" showEffect="fade" hideEffect="explode"  >
                 <h:panelGrid columns="2" cellpadding="5">
                     <h:outputLabel for="usuario" value="Usuario" />
@@ -40,12 +40,16 @@
                         <p:commandButton ajax="false" action="#{usuarioController.login()}" value="iniciar Sesion" update="msgIndex"/>
                     </f:facet> 
                 </h:panelGrid>
-                
+
                 <p:separator/>                 
                 <p:link outcome="resgistroUsuario" value="Registrate">               
                 </p:link>
             </p:confirmDialog>           
-        </h:form>            
+        </h:form>       
+             
+        <br />
+        <h:link outcome="/cliente/List" value="Show All Cliente Items"/>
     </h:body>
+
 </html>
 
