@@ -9,6 +9,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -32,13 +34,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Inmueble.findByTipo", query = "SELECT i FROM Inmueble i WHERE i.tipo = :tipo"),
     @NamedQuery(name = "Inmueble.findByTama\u00c3o", query = "SELECT i FROM Inmueble i WHERE i.tama\u00c3o = :tama\u00c3o"),
     @NamedQuery(name = "Inmueble.findByPrecio", query = "SELECT i FROM Inmueble i WHERE i.precio = :precio"),
-    @NamedQuery(name = "Inmueble.findByImg", query = "SELECT i FROM Inmueble i WHERE i.img = :img")})
+    @NamedQuery(name = "Inmueble.findByImg", query = "SELECT i FROM Inmueble i WHERE i.img = :img"),
+    @NamedQuery(name = "Inmueble.findByIdInmueble", query = "SELECT i FROM Inmueble i WHERE i.idInmueble = :idInmueble")})
 public class Inmueble implements Serializable {
     private static final long serialVersionUID = 1L;
     @Size(max = 50)
     @Column(name = "barrio")
     private String barrio;
-    @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -59,11 +61,21 @@ public class Inmueble implements Serializable {
     @Size(max = 50)
     @Column(name = "img")
     private String img;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_inmueble")
+    private Integer idInmueble;
 
     public Inmueble() {
     }
 
-    public Inmueble(String direccion) {
+    public Inmueble(Integer idInmueble) {
+        this.idInmueble = idInmueble;
+    }
+
+    public Inmueble(Integer idInmueble, String direccion) {
+        this.idInmueble = idInmueble;
         this.direccion = direccion;
     }
 
@@ -123,10 +135,18 @@ public class Inmueble implements Serializable {
         this.img = img;
     }
 
+    public Integer getIdInmueble() {
+        return idInmueble;
+    }
+
+    public void setIdInmueble(Integer idInmueble) {
+        this.idInmueble = idInmueble;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (direccion != null ? direccion.hashCode() : 0);
+        hash += (idInmueble != null ? idInmueble.hashCode() : 0);
         return hash;
     }
 
@@ -137,7 +157,7 @@ public class Inmueble implements Serializable {
             return false;
         }
         Inmueble other = (Inmueble) object;
-        if ((this.direccion == null && other.direccion != null) || (this.direccion != null && !this.direccion.equals(other.direccion))) {
+        if ((this.idInmueble == null && other.idInmueble != null) || (this.idInmueble != null && !this.idInmueble.equals(other.idInmueble))) {
             return false;
         }
         return true;
@@ -145,7 +165,7 @@ public class Inmueble implements Serializable {
 
     @Override
     public String toString() {
-        return "com.entity.inmueble.Inmueble[ direccion=" + direccion + " ]";
+        return "com.entity.inmueble.Inmueble[ idInmueble=" + idInmueble + " ]";
     }
     
 }

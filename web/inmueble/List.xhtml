@@ -15,11 +15,11 @@
 
         <ui:define name="body">
             <h:form id="InmuebleListForm">
-                <p:panel header="#{bundle.ListInmuebleTitle}">
+                <p:panel header="Lista de Inmuebles">
                     <p:dataTable id="datalist" value="#{inmuebleController.items}" var="item"
                                  selectionMode="single" selection="#{inmuebleController.selected}"
                                  paginator="true"
-                                 rowKey="#{item.direccion}"
+                                 rowKey="#{item.idInmueble}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
@@ -69,6 +69,12 @@
                             </f:facet>
                             <h:outputText value="#{item.img}"/>
                         </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListInmuebleTitle_idInmueble}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idInmueble}"/>
+                        </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{inmuebleController.prepareCreate}" update=":InmuebleCreateForm" oncomplete="PF('InmuebleCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":InmuebleViewForm" oncomplete="PF('InmuebleViewDialog').show()" disabled="#{empty inmuebleController.selected}"/>
@@ -82,7 +88,6 @@
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
-            <ui:include src="/usuario/timer.xhtml"/>  
         </ui:define>
     </ui:composition>
 
