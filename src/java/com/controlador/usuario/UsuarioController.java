@@ -1,8 +1,9 @@
-package com.entity;
+package com.controlador.usuario;
 
 import com.Encriptacion.Encrypt;
-import com.entity.util.JsfUtil;
-import com.entity.util.JsfUtil.PersistAction;
+import com.entity.usuario.Usuario;
+import com.controlador.usuario.util.JsfUtil;
+import com.controlador.usuario.util.JsfUtil.PersistAction;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -31,7 +32,7 @@ import javax.servlet.http.HttpSession;
 public class UsuarioController implements Serializable {
 
     @EJB
-    private com.entity.UsuarioFacade ejbFacade;
+    private com.controlador.usuario.UsuarioFacade ejbFacade;
     private List<Usuario> items = null;
     private Usuario selected;
     

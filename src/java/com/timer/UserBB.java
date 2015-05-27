@@ -5,7 +5,7 @@
  */
 package com.timer;
 
-import com.entity.UsuarioController;
+import com.controlador.usuario.UsuarioController;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;

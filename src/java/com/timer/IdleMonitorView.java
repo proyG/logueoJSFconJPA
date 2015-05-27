@@ -5,8 +5,8 @@
  */
 package com.timer;
 
-import com.entity.UsuarioController;
-import com.entity.util.JsfUtil;
+import com.controlador.usuario.UsuarioController;
+import com.controlador.usuario.util.JsfUtil;
 //import com.entity.util.JsfUtil.PersistAction;
 import java.io.IOException;
 import javax.faces.application.FacesMessage;
