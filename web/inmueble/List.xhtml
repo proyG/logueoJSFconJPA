@@ -29,6 +29,12 @@
 
                         <p:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListInmuebleTitle_idInmueble}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idInmueble}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListInmuebleTitle_barrio}"/>
                             </f:facet>
                             <h:outputText value="#{item.barrio}"/>
@@ -69,12 +75,7 @@
                             </f:facet>
                             <h:outputText value="#{item.img}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListInmuebleTitle_idInmueble}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idInmueble}"/>
-                        </p:column>
+                        
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{inmuebleController.prepareCreate}" update=":InmuebleCreateForm" oncomplete="PF('InmuebleCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":InmuebleViewForm" oncomplete="PF('InmuebleViewDialog').show()" disabled="#{empty inmuebleController.selected}"/>
@@ -88,6 +89,7 @@
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
+            <ui:include src="/usuario/timer.xhtml"/>  
         </ui:define>
     </ui:composition>
 

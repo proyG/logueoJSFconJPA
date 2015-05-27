@@ -24,8 +24,13 @@
                         <p:inputText id="tamaÃo" value="#{inmuebleController.selected.tamaÃo}" title="#{bundle.CreateInmuebleTitle_tamaÃo}" />
                         <p:outputLabel value="#{bundle.CreateInmuebleLabel_precio}" for="precio" />
                         <p:inputText id="precio" value="#{inmuebleController.selected.precio}" title="#{bundle.CreateInmuebleTitle_precio}" />
+                        
                         <p:outputLabel value="#{bundle.CreateInmuebleLabel_img}" for="img" />
                         <p:inputText id="img" value="#{inmuebleController.selected.img}" title="#{bundle.CreateInmuebleTitle_img}" />
+                        
+                        
+                        
+                        
                         <p:outputLabel value="#{bundle.CreateInmuebleLabel_idInmueble}" for="idInmueble" />
                         <p:inputText id="idInmueble" value="#{inmuebleController.selected.idInmueble}" title="#{bundle.CreateInmuebleTitle_idInmueble}" required="true" requiredMessage="#{bundle.CreateInmuebleRequiredMessage_idInmueble}"/>
                     </p:panelGrid>
@@ -36,4 +41,44 @@
         </p:dialog>
 
     </ui:composition>
+    <script type="text/javascript" >
+        function probarformato() {
+
+            var filehide = document.getElementById("btnImagen");
+
+            if (filehide.value.length > 0) {
+                var extencion = '';
+                var aux;
+                var ruta = filehide.value;
+                var lim = filehide.value.length - 6;
+                for (var i = filehide.value.length - 1; i > lim; i--) {
+                    aux = ruta.charAt(i);
+                    if (aux == '.') {
+                        i = 3;
+                    }
+                    else {
+                        if (i > lim) {
+                            extencion = aux + extencion;
+                        }
+                    }
+                }
+
+                if (extencion == 'png' || extencion == 'jpg' || extencion == 'jpeg' || extencion == 'jpg' || extencion == 'gif') {
+                    //alert('Formato de Imagen Correcto');                   
+                    var fReader = new FileReader();
+                    fReader.readAsDataURL(filehide.files[0]);
+                    fReader.onloadend = function (event) {
+                        var img = document.getElementById('imgInmueble');
+                        img.src = event.target.result;
+                    }
+                }
+                else {
+                    alert('Formato Invalido, solo se admite .jpg, .jpeg, .png y .gif');
+                    filehide.value = null;
+                }
+            }
+
+        }        
+</script>
+    
 </html>
